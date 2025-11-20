@@ -1,9 +1,4 @@
-//
-//  ContentView.swift
-//  MillionaireGame
-//
-//  Created by iMacbook on 11/20/25.
-//
+// Content View B Manuchehri
 
 import SwiftUI
 
