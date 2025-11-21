@@ -1,0 +1,15 @@
+{
+  "originHash" : "be41e8116fe90f8ef8c6f34eb7db9f8c5eef4eefb943aaae7ee0afc86605bf09",
+  "pins" : [
+    {
+      "identity" : "millionairedesignsystem",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/IncognitoCxde/MillionaireDesignSystem",
+      "state" : {
+        "branch" : "develop",
+        "revision" : "96de1db454e98b844309911f44bc1424ac46546c"
+      }
+    }
+  ],
+  "version" : 3
+}
