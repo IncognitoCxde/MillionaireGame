@@ -6,7 +6,7 @@ import DesignSystem
 struct SplashView: View {
     var body: some View {
         ZStack {
-            
+            GameBackgroundView()
             VStack {
                 
             }

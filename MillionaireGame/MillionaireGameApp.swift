@@ -4,7 +4,7 @@ import SwiftUI
 struct MillionaireGameApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashView()
         }
     }
 }
