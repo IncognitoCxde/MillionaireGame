@@ -1,0 +1,107 @@
+[
+  {
+    "id": "1",
+    "question": "Which element has the chemical symbol 'H'?",
+    "options": ["Helium", "Hydrogen", "Holmium", "Hafnium"],
+    "correct_answer": "1",
+    "prize": "$500"
+  },
+  {
+    "id": "2",
+    "question": "When was the Rhineland remilitarised?",
+    "options": ["1923", "1936", "1949", "1980"],
+    "correct_answer": "1",
+    "prize": "$1,000"
+  },
+  {
+    "id": "3",
+    "question": "What is Group VIII of the Periodic Table?",
+    "options": ["Halogens", "Alkali metals", "Noble gases", "Transition metals"],
+    "correct_answer": "2",
+    "prize": "$2,000"
+  },
+  {
+    "id": "4",
+    "question": "Which of these books is George Orwell's?",
+    "options": ["Fahrenheit 451", "Hunger Games", "Nineteen-Eighty-Four", "Brave New World"],
+    "correct_answer": "2",
+    "prize": "$3,000"
+  },
+  {
+    "id": "5",
+    "question": "Which element is liquid at room temperature?",
+    "options": ["Mercury", "Gold", "Silver", "Iron"],
+    "correct_answer": "0",
+    "prize": "$5,000"
+  },
+  {
+    "id": "6",
+    "question": "On what island did Napoleon Bonaparte die?",
+    "options": ["Corsica", "St.Helena", "Corfu", "Elba"],
+    "correct_answer": "1",
+    "prize": "$7,500"
+  },
+  {
+    "id": "7",
+    "question": "What is the meaning of a 'Halogen'?",
+    "options": ["Stable","Hard", "Shiny", "Salt-producing"],
+    "correct_answer": "3",
+    "prize": "$10,000"
+  },
+  {
+    "id": "8",
+    "question": "Which empire lost the Crimean war?",
+    "options": ["Ottoman", "Russian", "British", "French"],
+    "correct_answer": "1",
+    "prize": "$12,500"
+  },
+  {
+    "id": "9",
+    "question": "What are the role of catalysts?",
+    "options": ["To stop reactions", "To speed up reactions", "To start reactions", "To neutralise"],
+    "correct_answer": "1",
+    "prize": "$15,000"
+  },
+  {
+    "id": "10",
+    "question": "Which chemical reaction type is the basis of photosynthesis?",
+    "options": ["Oxidation", "Decomposition", "Synthesis", "Redox"],
+    "correct_answer": "2",
+    "prize": "$25,000"
+  },
+  {
+    "id": "11",
+    "question": "What is the atomic number of carbon?",
+    "options": ["6", "12", "14", "8"],
+    "correct_answer": "0",
+    "prize": "$50,000"
+  },
+  {
+    "id": "12",
+    "question": "What is the name of the process where an atom loses an electron?",
+    "options": ["Ionization", "Reduction", "Oxidation", "Sublimation"],
+    "correct_answer": "2",
+    "prize": "$100,000"
+  },
+  {
+    "id": "13",
+    "question": "Which scientist is credited with developing the periodic table?",
+    "options": ["Albert Einstein", "Linus Pauling", "Marie Curie", "Dmitri Mendeleev"],
+    "correct_answer": "3",
+    "prize": "$250,000"
+  },
+  {
+    "id": "14",
+    "question": "Which year did Russia launch an invasion on Ukraine?",
+    "options": ["2018", "2020", "2022", "2015"],
+    "correct_answer": "2",
+    "prize": "$500,000"
+  },
+  {
+    "id": "15",
+    "question": "Who assasinated Navalny?",
+    "options": ["Putin", "Ragozin", "Patruschev", "Shoigu"],
+    "correct_answer": "0",
+    "prize": "$1,000,000"
+  }
+]

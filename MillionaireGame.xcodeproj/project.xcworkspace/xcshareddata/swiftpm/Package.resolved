@@ -1,13 +1,22 @@
 {
-  "originHash" : "be41e8116fe90f8ef8c6f34eb7db9f8c5eef4eefb943aaae7ee0afc86605bf09",
+  "originHash" : "8469e3ad49f170ae763f5e3008b2e1ccf1a8c08c4f3658081b9d8322ca0dfd04",
   "pins" : [
+    {
+      "identity" : "confettiswiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/simibac/ConfettiSwiftUI",
+      "state" : {
+        "revision" : "79666d42b882bf7921b1941fa7c636d681d77980",
+        "version" : "2.0.3"
+      }
+    },
     {
       "identity" : "millionairedesignsystem",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/IncognitoCxde/MillionaireDesignSystem",
       "state" : {
         "branch" : "develop",
-        "revision" : "889f693f4bb9c1b805ab01a951f8e0a6edb16a59"
+        "revision" : "27a5bd1dd9a01cea69c10a9244e65c59230cdbdc"
       }
     }
   ],
