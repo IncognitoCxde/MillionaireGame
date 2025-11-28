@@ -5,7 +5,7 @@ import ConfettiSwiftUI
 struct SpawnQuiz: View {
     
     @StateObject private var viewModel = QuizViewModel()
-    
+
     var body: some View {
         ZStack {
             VStack {
@@ -64,22 +64,25 @@ struct SpawnQuiz: View {
                 } else {
                     
                     if viewModel.allCorrect {
-                        Text("🎊 YOU WIN 🎊")
+                        JustLogoView()
+                            .padding(.top, -80)
+                        Text("YOU WIN")
                             .font(.largeTitle)
                             .padding()
                             .foregroundColor(.brightGold)
                             .fontWeight(.bold)
                             .multilineTextAlignment(.center)
-                        
-                        Text("Congratulations!")
+                            .padding(.top, -80)
+                        Text("🎊 Congratulations! 🎊")
                             .font(.title)
                             .padding()
                             .foregroundColor(.brightGold)
                             .fontWeight(.semibold)
                             .multilineTextAlignment(.center)
-                                                
+                            .padding(.top, -40)
+
                         let withdrawGradient = LinearGradient(
-                            colors: [Color.green, Color.blue],
+                            colors: [.brightGold, .darkGold],
                             startPoint: .leading,
                             endPoint: .trailing
                         )
@@ -99,7 +102,7 @@ struct SpawnQuiz: View {
                         }
                         
                         Text("Click below to withdraw your cash now!")
-                            .font(.title2)
+                            .font(.title3)
                             .padding()
                             .foregroundColor(.white)
                             .fontWeight(.semibold)
@@ -113,14 +116,19 @@ struct SpawnQuiz: View {
                                 print("Cash Withdrawn")
                             }
                         )
-                            
+                        .frame(width: 400, height: 50)
+                        .padding(.bottom, 90)
                         .padding(.top)
                         
                     } else {
+                        JustLogoView()
+                            .padding(.top, -70)
                         Text("Game Over")
                             .font(.largeTitle)
                             .padding()
                             .foregroundStyle(.white)
+                            .fontWeight(.semibold)
+                            .padding(.top, -120)
                         
                         let restartGradient = LinearGradient(
                             colors: [.brightGold, .darkGold],
@@ -128,14 +136,29 @@ struct SpawnQuiz: View {
                             endPoint: .trailing
                         )
                         
-                        SlantedButton(
-                            title: "Restart Quiz",
-                            gradient: restartGradient,
-                            action: {
-                                viewModel.restartQuiz()
-                            }
-                        )
-                        .padding(.top)
+                        BestScoreSection(bestScore: viewModel.currentScore)
+                            .padding(.bottom, 40)
+                            .padding(.top, -40)
+                        
+                        VStack {
+                            SlantedButton(
+                                title: "Restart Quiz",
+                                gradient: restartGradient,
+                                action: {
+                                    viewModel.restartQuiz()
+                                }
+                            )
+                            .frame(width: 400, height: 50)
+                            .padding(.bottom, 40)
+                            SlantedButton(
+                                title: "Back to Home",
+                                gradient: .lifelineBlue,
+                                action: {
+                                }
+                                
+                            )
+                            .frame(width: 400, height: 50)
+                        }
                     }
                     
                 }

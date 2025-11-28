@@ -3,9 +3,8 @@ import DesignSystem
 
 struct QuizView: View {
     
-    @StateObject private var viewModel = QuizViewModel()
     @Environment(\.dismiss) var dismiss
-
+    
     var body: some View {
         ZStack {
             GameBackgroundView()

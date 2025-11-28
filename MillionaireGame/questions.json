@@ -64,8 +64,8 @@
   },
   {
     "id": "10",
-    "question": "Which chemical reaction type is the basis of photosynthesis?",
-    "options": ["Oxidation", "Decomposition", "Synthesis", "Redox"],
+    "question": "When was the Treaty of Versailles signed?",
+    "options": ["1980", "1914", "1919", "1947"],
     "correct_answer": "2",
     "prize": "$25,000"
   },
@@ -78,21 +78,21 @@
   },
   {
     "id": "12",
-    "question": "What is the name of the process where an atom loses an electron?",
-    "options": ["Ionization", "Reduction", "Oxidation", "Sublimation"],
+    "question": "What is Oxidation?",
+    "options": ["Gaining an electron", "Gaining a neutron", "Losing an electron", "Losing a proton"],
     "correct_answer": "2",
     "prize": "$100,000"
   },
   {
     "id": "13",
-    "question": "Which scientist is credited with developing the periodic table?",
+    "question": "Who won 2 Nobel prizes in different fields?",
     "options": ["Albert Einstein", "Linus Pauling", "Marie Curie", "Dmitri Mendeleev"],
-    "correct_answer": "3",
+    "correct_answer": "2",
     "prize": "$250,000"
   },
   {
     "id": "14",
-    "question": "Which year did Russia launch an invasion on Ukraine?",
+    "question": "When did Russia launch an invasion on Ukraine?",
     "options": ["2018", "2020", "2022", "2015"],
     "correct_answer": "2",
     "prize": "$500,000"

@@ -6,18 +6,22 @@ class QuizViewModel: ObservableObject {
         
     @Published var questions: [Question] = []
     @Published var currentQuestionIndex = 0
+    
     @Published var selectedAnswerIndex: Int? = nil
     @Published var selectedAnswerIsCorrect: Bool? = nil
     @Published var isAnswerSelected = false
+    
     @Published var gameOver = false
     @Published var allCorrect = true
-
-    @Published var remainingTime: Int = 30
     
+    @Published var remainingTime: Int = 30
     var timer: Timer?
     
     @Published var confettiCounter = 0
     
+    @Published var currentScore: Int = 0
+    @Published var bestScore: Int = UserDefaults.standard.integer(forKey: "BEST_SCORE")
+
     func fireConfetti() { confettiCounter += 1 }
     
     init() {
@@ -26,7 +30,7 @@ class QuizViewModel: ObservableObject {
     
     func startTimer() {
         stopTimer()
-        
+
         guard !gameOver else { return }
         
         remainingTime = 30
@@ -37,10 +41,8 @@ class QuizViewModel: ObservableObject {
             if self.remainingTime > 0 {
                 self.remainingTime -= 1
             } else {
-                self.stopTimer()
-                if !self.allCorrect {
-                    self.gameOver = true
-                }
+                self.allCorrect = false
+                self.finishGame()
             }
         }
     }
@@ -49,7 +51,7 @@ class QuizViewModel: ObservableObject {
         timer?.invalidate()
         timer = nil
     }
-
+    
     var currentQuestion: Question {
         questions[currentQuestionIndex]
     }
@@ -66,18 +68,26 @@ class QuizViewModel: ObservableObject {
 
     func checkAnswer(selectedIndex: Int) {
         selectedAnswerIndex = selectedIndex
+        
         let correct = "\(selectedIndex)" == currentQuestion.correct_answer
         selectedAnswerIsCorrect = correct
         isAnswerSelected = true
         
-        if !correct {
-            allCorrect = false
-            stopTimer()
-            gameOver = true
-        } else {
+        if correct {
+            let cleanPrize = currentQuestion.prize
+                .replacingOccurrences(of: "$", with: "")
+                .replacingOccurrences(of: ",", with: "")
+                .trimmingCharacters(in: .whitespaces)
+            
+            currentScore += Int(cleanPrize) ?? 0
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.nextQuestion()
             }
+            
+        } else {
+            allCorrect = false
+            finishGame()
         }
     }
 
@@ -91,10 +101,19 @@ class QuizViewModel: ObservableObject {
             startTimer()
         } else {
             allCorrect = true
-            gameOver = true
-            stopTimer()
+            finishGame()
             fireConfetti()
             resetAnswerState()
+        }
+    }
+
+    func finishGame() {
+        stopTimer()
+        gameOver = true
+        
+        if currentScore > bestScore {
+            bestScore = currentScore
+            UserDefaults.standard.set(bestScore, forKey: "BEST_SCORE")
         }
     }
 
@@ -109,6 +128,7 @@ class QuizViewModel: ObservableObject {
         currentQuestionIndex = 0
         allCorrect = true
         gameOver = false
+        currentScore = 0
         resetAnswerState()
         startTimer()
     }
