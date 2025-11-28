@@ -43,7 +43,11 @@ struct SpawnQuiz: View {
                             AnswerOptionRow(
                                 optionLabel: optionLabel,
                                 optionText: currentQuestion.options[index],
-                                gradient: .answerGradient,
+                                gradient: viewModel.selectedAnswerIndex == index
+                                ? (viewModel.selectedAnswerIsCorrect == true
+                                   ? LinearGradient.correctGradient
+                                   : LinearGradient.wrongGradient)
+                                : LinearGradient.answerGradient,
                                 action: {
                                     if !viewModel.isAnswerSelected {
                                         viewModel.checkAnswer(selectedIndex: index)
