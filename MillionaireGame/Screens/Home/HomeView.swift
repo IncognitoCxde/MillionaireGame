@@ -6,6 +6,7 @@ import DesignSystem
 struct HomeView: View {
     
     @State private var goToQuiz = false
+    @State private var showRules = false
     
     var body: some View {
         NavigationStack {
@@ -27,7 +28,7 @@ struct HomeView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
-                            print("Help Tapped...")
+                            showRules = true
                         }) {
                             Image.help
                                 .padding(.trailing, 20)
@@ -40,6 +41,12 @@ struct HomeView: View {
             
             .navigationDestination(isPresented: $goToQuiz) {
                 QuizView()
+            }
+            
+            .sheet(isPresented: $showRules) {
+                RulesView()
+                    .presentationDetents([.medium])
+                    .presentationDragIndicator(.visible)
             }
         }
     }

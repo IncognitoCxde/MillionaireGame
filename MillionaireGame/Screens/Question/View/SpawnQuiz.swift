@@ -72,14 +72,14 @@ struct SpawnQuiz: View {
                             .foregroundColor(.brightGold)
                             .fontWeight(.bold)
                             .multilineTextAlignment(.center)
-                            .padding(.top, -80)
-                        Text("🎊 Congratulations! 🎊")
+                            .padding(.top, -110)
+                        Text("Congratulations!")
                             .font(.title)
                             .padding()
                             .foregroundColor(.brightGold)
                             .fontWeight(.semibold)
                             .multilineTextAlignment(.center)
-                            .padding(.top, -40)
+                            .padding(.top, -80)
 
                         let withdrawGradient = LinearGradient(
                             colors: [.brightGold, .darkGold],
@@ -122,13 +122,13 @@ struct SpawnQuiz: View {
                         
                     } else {
                         JustLogoView()
-                            .padding(.top, -70)
+                            .padding(.top, -80)
                         Text("Game Over")
                             .font(.largeTitle)
                             .padding()
                             .foregroundStyle(.white)
                             .fontWeight(.semibold)
-                            .padding(.top, -120)
+                            .padding(.top, -140)
                         
                         let restartGradient = LinearGradient(
                             colors: [.brightGold, .darkGold],
@@ -138,7 +138,7 @@ struct SpawnQuiz: View {
                         
                         BestScoreSection(bestScore: viewModel.currentScore)
                             .padding(.bottom, 40)
-                            .padding(.top, -40)
+                            .padding(.top, -60)
                         
                         VStack {
                             SlantedButton(
