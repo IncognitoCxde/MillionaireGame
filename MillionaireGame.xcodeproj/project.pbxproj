@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		575443962ED0AC5500EC66D1 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 575443952ED0AC5500EC66D1 /* DesignSystem */; };
+		57937FAB2ED8DB18001DB271 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 57937FAA2ED8DB18001DB271 /* ConfettiSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57937FAB2ED8DB18001DB271 /* ConfettiSwiftUI in Frameworks */,
 				575443962ED0AC5500EC66D1 /* DesignSystem in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +73,7 @@
 			name = MillionaireGame;
 			packageProductDependencies = (
 				575443952ED0AC5500EC66D1 /* DesignSystem */,
+				57937FAA2ED8DB18001DB271 /* ConfettiSwiftUI */,
 			);
 			productName = MillionaireGame;
 			productReference = 57DBBD5D2ECF2E5C00691DB1 /* MillionaireGame.app */;
@@ -102,6 +105,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				575443942ED0AC5500EC66D1 /* XCRemoteSwiftPackageReference "MillionaireDesignSystem" */,
+				57937FA92ED8DB18001DB271 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 57DBBD5E2ECF2E5C00691DB1 /* Products */;
@@ -351,6 +355,14 @@
 				kind = branch;
 			};
 		};
+		57937FA92ED8DB18001DB271 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -358,6 +370,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 575443942ED0AC5500EC66D1 /* XCRemoteSwiftPackageReference "MillionaireDesignSystem" */;
 			productName = DesignSystem;
+		};
+		57937FAA2ED8DB18001DB271 /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57937FA92ED8DB18001DB271 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
