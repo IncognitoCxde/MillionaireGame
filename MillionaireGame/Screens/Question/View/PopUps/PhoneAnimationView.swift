@@ -5,24 +5,38 @@ struct PhoneAnimationView: View {
     var message: String
     
     var body: some View {
-        VStack {
-            Text("Phone Call")
+        VStack(spacing: 16) {
+            Text("Phone a Friend")
                 .font(.title)
                 .fontWeight(.bold)
-            
+                .foregroundColor(.white)
+
             Image.phone
                 .resizable()
-                .frame(width: 50, height: 50)
-                .rotationEffect(.degrees(45))
-                .animation(.easeInOut(duration: 1), value: showAnimation)
+                .frame(width: 60, height: 60)
+                .rotationEffect(.degrees(showAnimation ? 0 : -20))
+                .animation(.easeInOut(duration: 0.6).repeatForever(), value: showAnimation)
+            
+            Text("Hey, glad you called me!")
+                .foregroundColor(.white)
+                .font(.title3)
+                .padding(.top, 5)
+                .fontWeight(.semibold)
+                .multilineTextAlignment(.center)
+            
             Text(message)
-                .font(.title2)
-                .padding()
+                .foregroundColor(.white)
+                .font(.title3)
+                .padding(.top, 5)
+                .fontWeight(.semibold)
+                .multilineTextAlignment(.center)
         }
-        .frame(maxWidth: 300, maxHeight: 300)
-        .background(Color.white)
-        .cornerRadius(10)
-        .shadow(radius: 10)
+        .padding(25)
+        .background(Color.black.opacity(0.85))
+        .cornerRadius(15)
+        .shadow(color: .black.opacity(0.8), radius: 20)
+        .shadow(color: .white.opacity(0.7), radius: 40)
         .opacity(showAnimation ? 1 : 0)
+        .animation(.easeInOut, value: showAnimation)
     }
 }

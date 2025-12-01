@@ -2,39 +2,59 @@ import SwiftUI
 import DesignSystem
 
 struct CashOutView: View {
+    
+    @StateObject private var viewModel = QuizViewModel()
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
         ZStack {
             GameBackgroundView()
             VStack {
-                Text("Congratulations!")
+                JustLogoView()
+                
+                Text("Cash Out Early")
                     .font(.largeTitle)
                     .foregroundColor(.brightGold)
                     .padding()
+                    .fontWeight(.bold)
+                    .padding(.top, -100)
 
-                Text("You've reached the Cash Out stage!")
+                Text("Take your winnings early!")
                     .font(.title)
                     .foregroundColor(.white)
                     .padding()
-
-                Button(action: {
-                    print("Cash Out Button Tapped!")
-                }) {
-                    Text("Confirm Cash Out")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(LinearGradient(colors: [.brightGold, .darkGold], startPoint: .leading, endPoint: .trailing))
-                        .cornerRadius(10)
-                        .shadow(radius: 5)
-                        .frame(width: 250, height: 50)
+                    .multilineTextAlignment(.center)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal)
+                    .padding(.top, -30)
+                
+                Text("Are you sure?")
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .padding()
+                    .multilineTextAlignment(.center)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal)
+                    .padding(.top, -30)
+                
+                SlantedButton(title: "Confirm Cash Out", gradient: LinearGradient(colors: [.brightGold, .darkGold], startPoint: .leading, endPoint: .trailing)) {
+                    
                 }
-                .padding(.top, 50)
+                .frame(width: 400, height: 50)
+                .padding(.bottom, 100)
+                .padding(.top, 60)
+            }
+            .navigationBarBackButtonHidden(true)
+            
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
+                       dismiss()
+                    }) {
+                        Image.arrowBack
+                    }
+                }
             }
         }
     }
-}
-
-#Preview {
-    CashOutView()
 }

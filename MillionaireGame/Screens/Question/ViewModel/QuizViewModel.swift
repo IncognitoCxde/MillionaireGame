@@ -31,6 +31,9 @@ class QuizViewModel: ObservableObject {
     @Published var audienceVotes: [String: Int] = [:]
     @Published var phoneCallMessage: String = ""
     
+    @Published var cashOutEarly = false
+
+    
     init() {
         loadData()
     }
@@ -86,7 +89,7 @@ class QuizViewModel: ObservableObject {
                 .replacingOccurrences(of: ",", with: "")
                 .trimmingCharacters(in: .whitespaces)
             
-            currentScore += Int(cleanPrize) ?? 0
+            currentScore = Int(cleanPrize) ?? 0
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.nextQuestion()
@@ -163,10 +166,67 @@ class QuizViewModel: ObservableObject {
     }
     
     func useAskAudience() {
+        guard !usedAskAudience else { return }
         usedAskAudience = true
+        
+        let correctIndex = Int(currentQuestion.correct_answer) ?? 0
+        let optionLetters = ["A", "B", "C", "D"]
+        
+        let available = usedFiftyFifty ? availableOptions : Array(currentQuestion.options.indices)
+        
+        var votes: [String: Int] = [:]
+        
+        let correctVote = Int.random(in: 55...75)
+        votes[optionLetters[correctIndex]] = correctVote
+        
+        let remaining = 100 - correctVote
+        let wrongOptions = available.filter { $0 != correctIndex }
+        
+        for idx in wrongOptions {
+            votes[optionLetters[idx]] = remaining / wrongOptions.count
+        }
+        
+        for i in 0..<4 {
+            let letter = optionLetters[i]
+            if votes[letter] == nil {
+                votes[letter] = 0
+            }
+        }
+        
+        audienceVotes = votes
     }
+
     
     func usePhoneAFriend() {
+        guard !usedPhoneAFriend else { return }
         usedPhoneAFriend = true
+        
+        let correctIndex = Int(currentQuestion.correct_answer) ?? 0
+        let optionLetters = ["A", "B", "C", "D"]
+        
+        let isCorrect = Int.random(in: 1...100) <= 70
+        
+        let chosenIndex: Int
+        if isCorrect {
+            chosenIndex = correctIndex
+        } else {
+            chosenIndex = Array(currentQuestion.options.indices.filter { $0 != correctIndex }).randomElement() ?? correctIndex
+        }
+        
+        let chosenLetter = optionLetters[chosenIndex]
+        
+        phoneCallMessage = [
+            "Hmm… I think it's **\(chosenLetter)**.",
+            "I'm not 100% sure, but I'd go with **\(chosenLetter)**.",
+            "Maybe the answer is **\(chosenLetter)**, but I can't be sure.",
+            "If I had to pick, I'd say **\(chosenLetter)**.",
+        ].randomElement()!
     }
+    
+    func cashOut() {
+        cashOutEarly = true
+        stopTimer()
+    }
+
+
 }

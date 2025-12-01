@@ -11,7 +11,6 @@ struct SplashView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                
                 if !isActive {
                     GameBackgroundView()
                     JustLogoView()
