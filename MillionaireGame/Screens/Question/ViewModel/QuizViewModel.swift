@@ -3,7 +3,7 @@ import DesignSystem
 import ConfettiSwiftUI
 
 class QuizViewModel: ObservableObject {
-        
+    
     @Published var questions: [Question] = []
     @Published var currentQuestionIndex = 0
     
@@ -21,13 +21,13 @@ class QuizViewModel: ObservableObject {
     
     @Published var currentScore: Int = 0
     @Published var bestScore: Int = UserDefaults.standard.integer(forKey: "BEST_SCORE")
-
+    
     func fireConfetti() { confettiCounter += 1 }
     
     @Published var usedFiftyFifty = false
     @Published var usedAskAudience = false
     @Published var usedPhoneAFriend = false
-    @Published var availableOptions: [String] = []
+    @Published var availableOptions: [Int] = []
     @Published var audienceVotes: [String: Int] = [:]
     @Published var phoneCallMessage: String = ""
     
@@ -37,7 +37,7 @@ class QuizViewModel: ObservableObject {
     
     func startTimer() {
         stopTimer()
-
+        
         guard !gameOver else { return }
         
         remainingTime = 30
@@ -53,14 +53,16 @@ class QuizViewModel: ObservableObject {
             }
         }
     }
-
+    
     func stopTimer() {
         timer?.invalidate()
         timer = nil
     }
     
-    var currentQuestion: Question { questions[currentQuestionIndex] }
-
+    var currentQuestion: Question {
+        questions[currentQuestionIndex]
+    }
+    
     func loadData() {
         if let url = Bundle.main.url(forResource: "questions", withExtension: "json"),
            let data = try? Data(contentsOf: url),
@@ -70,7 +72,7 @@ class QuizViewModel: ObservableObject {
         
         startTimer()
     }
-
+    
     func checkAnswer(selectedIndex: Int) {
         selectedAnswerIndex = selectedIndex
         
@@ -95,7 +97,7 @@ class QuizViewModel: ObservableObject {
             finishGame()
         }
     }
-
+    
     func nextQuestion() {
         guard selectedAnswerIsCorrect == true else { return }
         guard !gameOver else { return }
@@ -111,7 +113,7 @@ class QuizViewModel: ObservableObject {
             resetAnswerState()
         }
     }
-
+    
     func finishGame() {
         stopTimer()
         gameOver = true
@@ -121,13 +123,17 @@ class QuizViewModel: ObservableObject {
             UserDefaults.standard.set(bestScore, forKey: "BEST_SCORE")
         }
     }
-
+    
     private func resetAnswerState() {
         selectedAnswerIndex = nil
         selectedAnswerIsCorrect = nil
         isAnswerSelected = false
+        
+        availableOptions = Array(currentQuestion.options.indices)
+        audienceVotes = [:]
+        phoneCallMessage = ""
     }
-
+    
     func restartQuiz() {
         stopTimer()
         currentQuestionIndex = 0
@@ -135,24 +141,32 @@ class QuizViewModel: ObservableObject {
         gameOver = false
         currentScore = 0
         resetAnswerState()
+        
+        usedFiftyFifty = false
+        usedAskAudience = false
+        usedPhoneAFriend = false
+        
         startTimer()
     }
     
     func useFiftyFifty() {
-        print("used 50:50")
+        guard !usedFiftyFifty else { return }
         usedFiftyFifty = true
+        
+        let correctIndex = Int(currentQuestion.correct_answer) ?? 0
+        let allIndexes = Array(currentQuestion.options.indices)
+        
+        let wrongIndexes = allIndexes.filter { $0 != correctIndex }
+        let removedTwo = Array(wrongIndexes.shuffled().prefix(2))
+        
+        availableOptions = allIndexes.filter { !removedTwo.contains($0) }
     }
-
-
-
+    
     func useAskAudience() {
-        print("asked audience")
         usedAskAudience = true
     }
     
     func usePhoneAFriend() {
-       print("used phone")
         usedPhoneAFriend = true
     }
-
 }

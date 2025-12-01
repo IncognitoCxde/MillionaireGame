@@ -3,7 +3,7 @@ import DesignSystem
 
 struct LifelineButtonSpawn: View {
     
-    @StateObject private var viewModel = QuizViewModel()
+    @ObservedObject var viewModel: QuizViewModel
     
     var body: some View {
         HStack(spacing: 15) {

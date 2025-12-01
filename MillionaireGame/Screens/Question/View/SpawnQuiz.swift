@@ -46,28 +46,35 @@ struct SpawnQuiz: View {
                         ForEach(currentQuestion.options.indices, id: \.self) { index in
                             let optionLabel = ["A: ", "B: ", "C: ", "D: "][index]
                             
-                            AnswerOptionRow(
-                                optionLabel: optionLabel,
-                                optionText: currentQuestion.options[index],
-                                gradient: viewModel.selectedAnswerIndex == index
-                                ? (viewModel.selectedAnswerIsCorrect == true
-                                   ? LinearGradient.correctGradient
-                                   : LinearGradient.wrongGradient)
-                                : LinearGradient.answerGradient,
-                                action: {
-                                    if !viewModel.isAnswerSelected {
-                                        viewModel.checkAnswer(selectedIndex: index)
-                                        withAnimation(.easeInOut(duration: 1.0)) {
-                                            opacity = 0.0
-                                            showLevelsScreen = true
+                            if viewModel.usedFiftyFifty && !viewModel.availableOptions.contains(index) {
+                                EmptyView()
+                                    .frame(height: 0)
+                            } else {
+                                AnswerOptionRow(
+                                    optionLabel: optionLabel,
+                                    optionText: currentQuestion.options[index],
+                                    gradient: viewModel.selectedAnswerIndex == index
+                                    ? (
+                                        viewModel.selectedAnswerIsCorrect!
+                                        ? LinearGradient.correctGradient
+                                        : LinearGradient.wrongGradient
+                                    )
+                                    : LinearGradient.answerGradient,
+                                    action: {
+                                        if !viewModel.isAnswerSelected {
+                                            viewModel.checkAnswer(selectedIndex: index)
+                                            withAnimation(.easeInOut(duration: 1.0)) {
+                                                opacity = 0.0
+                                                showLevelsScreen = true
+                                            }
                                         }
                                     }
-                                }
-                            )
-                            .padding(5)
-                            .disabled(viewModel.isAnswerSelected)
+                                )
+                                .padding(5)
+                                .disabled(viewModel.isAnswerSelected)
+                            }
                         }
-                        LifelineButtonSpawn()
+                        LifelineButtonSpawn(viewModel: viewModel)
                             .padding(.top, 30)
                     }
                     
