@@ -24,6 +24,13 @@ class QuizViewModel: ObservableObject {
 
     func fireConfetti() { confettiCounter += 1 }
     
+    @Published var usedFiftyFifty = false
+    @Published var usedAskAudience = false
+    @Published var usedPhoneAFriend = false
+    @Published var availableOptions: [String] = []
+    @Published var audienceVotes: [String: Int] = [:]
+    @Published var phoneCallMessage: String = ""
+    
     init() {
         loadData()
     }
@@ -52,9 +59,7 @@ class QuizViewModel: ObservableObject {
         timer = nil
     }
     
-    var currentQuestion: Question {
-        questions[currentQuestionIndex]
-    }
+    var currentQuestion: Question { questions[currentQuestionIndex] }
 
     func loadData() {
         if let url = Bundle.main.url(forResource: "questions", withExtension: "json"),
@@ -132,4 +137,22 @@ class QuizViewModel: ObservableObject {
         resetAnswerState()
         startTimer()
     }
+    
+    func useFiftyFifty() {
+        print("used 50:50")
+        usedFiftyFifty = true
+    }
+
+
+
+    func useAskAudience() {
+        print("asked audience")
+        usedAskAudience = true
+    }
+    
+    func usePhoneAFriend() {
+       print("used phone")
+        usedPhoneAFriend = true
+    }
+
 }

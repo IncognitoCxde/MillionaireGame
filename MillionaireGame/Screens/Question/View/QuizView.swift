@@ -24,7 +24,7 @@ struct QuizView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        print("levels shown...")
+                        
                     }) {
                         Image.levels
                     }
