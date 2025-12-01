@@ -5,6 +5,8 @@ struct LevelProgressView: View {
     let levels: [(Int, String)]
     let currentLevel: Int
     
+    @ObservedObject var viewModel: QuizViewModel
+    
     var body: some View {
         ZStack {
             GameBackgroundView()
@@ -28,9 +30,12 @@ struct LevelProgressView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        
-                    }){
+                    NavigationLink {
+                        CashOutView()
+                            .onAppear {
+                                viewModel.cashOut()
+                            }
+                    } label: {
                         Image.cashOut
                     }
                 }

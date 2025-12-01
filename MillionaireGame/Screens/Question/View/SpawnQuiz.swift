@@ -73,8 +73,27 @@ struct SpawnQuiz: View {
                                 .padding(5)
                                 .disabled(viewModel.isAnswerSelected)
                             }
+
                         }
-                        LifelineButtonSpawn(viewModel: viewModel)
+                        LifelineButtonSpawn(
+                            viewModel: viewModel,
+                            onAudienceUsed: {
+                                showAudiencePopUp = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                    withAnimation {
+                                        showAudiencePopUp = false
+                                    }
+                                }
+                            },
+                            onPhoneUsed: {
+                                showPhoneAnimation = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                    withAnimation {
+                                        showPhoneAnimation = false
+                                    }
+                                }
+                            }
+                        )
                             .padding(.top, 30)
                     }
                     
@@ -199,7 +218,8 @@ struct SpawnQuiz: View {
             if showLevelsScreen {
                 LevelProgressView(
                     levels: [(1, "$500"), (2, "$1,000"), (3, "$2,000"), (4, "$3,000"), (5, "$5,000"), (6, "$7,500"), (7, "$10,000"), (8, "$12,500"), (9, "$15,000"), (10, "$25,000"), (11, "$50,000"), (12, "$100,000"), (13, "$250,000"), (14, "$500,000"), (15, "$1,000,000")],
-                    currentLevel: viewModel.currentQuestionIndex + 1
+                    currentLevel: viewModel.currentQuestionIndex + 1,
+                    viewModel: viewModel
                 )
                 .transition(.opacity)
                 .onAppear {
