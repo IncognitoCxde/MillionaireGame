@@ -14,8 +14,7 @@ struct PhoneAnimationView: View {
                 .resizable()
                 .frame(width: 50, height: 50)
                 .rotationEffect(.degrees(45))
-                .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true))
-            
+                .animation(.easeInOut(duration: 1), value: showAnimation)
             Text(message)
                 .font(.title2)
                 .padding()
