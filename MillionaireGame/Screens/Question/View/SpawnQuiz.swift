@@ -5,7 +5,13 @@ import ConfettiSwiftUI
 struct SpawnQuiz: View {
     
     @StateObject private var viewModel = QuizViewModel()
-
+    @State private var showLevelsScreen = false
+    @State private var opacity: Double = 1.0
+    @Environment(\.dismiss) var dismiss
+    
+    @State private var showAudiencePopUp = false
+    @State private var showPhoneAnimation = false
+    
     var body: some View {
         ZStack {
             VStack {
@@ -51,6 +57,10 @@ struct SpawnQuiz: View {
                                 action: {
                                     if !viewModel.isAnswerSelected {
                                         viewModel.checkAnswer(selectedIndex: index)
+                                        withAnimation(.easeInOut(duration: 1.0)) {
+                                            opacity = 0.0
+                                            showLevelsScreen = true
+                                        }
                                     }
                                 }
                             )
@@ -80,7 +90,7 @@ struct SpawnQuiz: View {
                             .fontWeight(.semibold)
                             .multilineTextAlignment(.center)
                             .padding(.top, -80)
-
+                        
                         let withdrawGradient = LinearGradient(
                             colors: [.brightGold, .darkGold],
                             startPoint: .leading,
@@ -154,6 +164,7 @@ struct SpawnQuiz: View {
                                 title: "Back to Home",
                                 gradient: .lifelineBlue,
                                 action: {
+                                    dismiss()
                                 }
                                 
                             )
@@ -163,15 +174,44 @@ struct SpawnQuiz: View {
                     
                 }
             }
+            .overlay(
+                AudiencePopUpView(showPopUp: $showAudiencePopUp, audienceVotes: viewModel.audienceVotes)
+                    .transition(.opacity)
+            )
+            
+            .overlay(
+                PhoneAnimationView(showAnimation: $showPhoneAnimation, message: viewModel.phoneCallMessage)
+                    .transition(.opacity)
+            )
+            
             ConfettiCannon(
                 trigger: $viewModel.confettiCounter,
                 num: 50,
                 radius: 600
             )
+            if showLevelsScreen {
+                LevelProgressView(
+                    levels: [(1, "$500"), (2, "$1,000"), (3, "$2,000"), (4, "$3,000"), (5, "$5,000"), (6, "$7,500"), (7, "$10,000"), (8, "$12,500"), (9, "$15,000"), (10, "$25,000"), (11, "$50,000"), (12, "$100,000"), (13, "$250,000"), (14, "$500,000"), (15, "$1,000,000")],
+                    currentLevel: viewModel.currentQuestionIndex + 1
+                )
+                .transition(.opacity)
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        withAnimation(.easeInOut(duration: 1.0)) {
+                            opacity = 1
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                showLevelsScreen = false
+                        }
+                    }
+                    viewModel.nextQuestion()
+                }
+            }
         }
+        }
+        
         .padding()
         .onAppear {
             viewModel.loadData()
         }
-    }
+}
 }
