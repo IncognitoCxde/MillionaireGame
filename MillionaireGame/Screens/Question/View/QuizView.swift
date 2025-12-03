@@ -22,13 +22,6 @@ struct QuizView: View {
                             .foregroundColor(.white)
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                       
-                    }) {
-                        Image.levels
-                    }
-                }
             }
         }
     }

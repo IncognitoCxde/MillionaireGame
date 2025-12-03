@@ -6,6 +6,7 @@ struct LevelProgressView: View {
     let currentLevel: Int
     
     @ObservedObject var viewModel: QuizViewModel
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         ZStack {
@@ -28,8 +29,16 @@ struct LevelProgressView: View {
                 }
                 .scaleEffect(0.8)
             }
+            .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image.arrowBack
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
                         CashOutView()
                             .onAppear {

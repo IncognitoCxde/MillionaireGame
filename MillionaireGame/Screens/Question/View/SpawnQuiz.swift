@@ -221,12 +221,13 @@ struct SpawnQuiz: View {
                     currentLevel: viewModel.currentQuestionIndex + 1,
                     viewModel: viewModel
                 )
+                .navigationBarHidden(true)
                 .transition(.opacity)
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         withAnimation(.easeInOut(duration: 1.0)) {
                             opacity = 1
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                                 showLevelsScreen = false
                         }
                     }
@@ -234,6 +235,14 @@ struct SpawnQuiz: View {
                 }
             }
         }
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink(destination: LevelProgressView(levels: [(1, "$500"), (2, "$1,000"), (3, "$2,000"), (4, "$3,000"), (5, "$5,000"), (6, "$7,500"), (7, "$10,000"), (8, "$12,500"), (9, "$15,000"), (10, "$25,000"), (11, "$50,000"), (12, "$100,000"), (13, "$250,000"), (14, "$500,000"), (15, "$1,000,000")], currentLevel: viewModel.currentQuestionIndex + 1, viewModel: viewModel)) {
+                    Image.levels
+                }
+            }
         }
         
         .padding()

@@ -5,6 +5,7 @@ struct CashOutView: View {
     
     @StateObject private var viewModel = QuizViewModel()
     @Environment(\.dismiss) var dismiss
+    @State private var isNavigating = false
 
     var body: some View {
         ZStack {
@@ -18,7 +19,7 @@ struct CashOutView: View {
                     .padding()
                     .fontWeight(.bold)
                     .padding(.top, -100)
-
+                
                 Text("Take your winnings early!")
                     .font(.title)
                     .foregroundColor(.white)
@@ -37,14 +38,22 @@ struct CashOutView: View {
                     .padding(.horizontal)
                     .padding(.top, -30)
                 
-                SlantedButton(title: "Confirm Cash Out", gradient: LinearGradient(colors: [.brightGold, .darkGold], startPoint: .leading, endPoint: .trailing)) {
-                    
-                }
-                .frame(width: 400, height: 50)
-                .padding(.bottom, 100)
-                .padding(.top, 60)
+                    SlantedButton(
+                        title: "Confirm Cash Out",
+                        gradient: LinearGradient(colors: [.brightGold, .darkGold], startPoint: .leading, endPoint: .trailing)
+                    ) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            isNavigating = true
+                        }
+                    }
+                    .frame(width: 400, height: 50)
+                    .padding(.bottom, 100)
+                    .padding(.top, 60)
             }
             .navigationBarBackButtonHidden(true)
+            NavigationLink(destination: CardDetailsView(), isActive: $isNavigating) {
+                EmptyView()
+            }
             
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
