@@ -7,6 +7,9 @@ struct HomeView: View {
     
     @State private var goToQuiz = false
     @State private var showRules = false
+    @State private var showSettingsSheet = false
+    @State private var enableChat = false
+    @State private var enablePhoneAFriend = false
     
     var body: some View {
         NavigationStack {
@@ -25,6 +28,19 @@ struct HomeView: View {
                     .padding(.top, 50)
                     
                 }
+                .navigationDestination(isPresented: $goToQuiz) {
+                    QuizView(enableChat: $enableChat, enablePhoneAFriend: $enablePhoneAFriend)
+                }
+                
+                .sheet(isPresented: $showRules) {
+                    RulesView()
+                        .presentationDetents([.medium])
+                        .presentationDragIndicator(.visible)
+                }
+                .sheet(isPresented: $showSettingsSheet) {
+                    SettingsSheet(enableChat: $enableChat, enablePhoneAFriend: $enablePhoneAFriend)
+                        .presentationDetents([.fraction(0.20), .medium])
+                }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
@@ -35,18 +51,17 @@ struct HomeView: View {
                         }
                     }
                     
-                    
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button(action: {
+                            showSettingsSheet = true
+                        }) {
+                            Image(systemName: "gearshape.circle.fill")
+                                .font(.title2)
+                                .foregroundColor(.white)
+                                .padding(.leading, 20)
+                        }
+                    }
                 }
-            }
-            
-            .navigationDestination(isPresented: $goToQuiz) {
-                QuizView()
-            }
-            
-            .sheet(isPresented: $showRules) {
-                RulesView()
-                    .presentationDetents([.medium])
-                    .presentationDragIndicator(.visible)
             }
         }
     }

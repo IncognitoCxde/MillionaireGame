@@ -12,6 +12,12 @@ struct SpawnQuiz: View {
     @State private var showAudiencePopUp = false
     @State private var showPhoneAnimation = false
     
+    @Binding var enableChat: Bool
+    @Binding var enablePhoneAFriend: Bool
+    
+    @State private var showChatPopUp = false
+    @State private var isChatTimerActive = false
+    
     var body: some View {
         ZStack {
             VStack {
@@ -21,7 +27,6 @@ struct SpawnQuiz: View {
                         questionNumber: viewModel.currentQuestionIndex + 1,
                         prizeValue: viewModel.currentQuestion.prize
                     )
-                    
                     .padding(.top, -40)
                     
                     TimerView(
@@ -73,8 +78,8 @@ struct SpawnQuiz: View {
                                 .padding(5)
                                 .disabled(viewModel.isAnswerSelected)
                             }
-
                         }
+                        
                         LifelineButtonSpawn(
                             viewModel: viewModel,
                             onAudienceUsed: {
@@ -84,6 +89,11 @@ struct SpawnQuiz: View {
                                         showAudiencePopUp = false
                                     }
                                 }
+                            }, enableChat: $enableChat,
+                            enablePhoneAFriend: $enablePhoneAFriend,
+                            onChatUsed: {
+                                showChatPopUp = true
+                                viewModel.stopTimer()
                             },
                             onPhoneUsed: {
                                 showPhoneAnimation = true
@@ -94,11 +104,10 @@ struct SpawnQuiz: View {
                                 }
                             }
                         )
-                            .padding(.top, 30)
+                        .padding(.top, 30)
                     }
                     
                 } else {
-                    
                     if viewModel.allCorrect {
                         JustLogoView()
                             .padding(.top, -80)
@@ -123,7 +132,6 @@ struct SpawnQuiz: View {
                             endPoint: .trailing
                         )
                         
-                        
                         HStack {
                             Image.coin
                                 .resizable()
@@ -134,7 +142,6 @@ struct SpawnQuiz: View {
                                 .foregroundColor(.brightGold)
                                 .fontWeight(.bold)
                                 .multilineTextAlignment(.center)
-                            
                         }
                         
                         Text("Click below to withdraw your cash now!")
@@ -143,7 +150,6 @@ struct SpawnQuiz: View {
                             .foregroundColor(.white)
                             .fontWeight(.semibold)
                             .multilineTextAlignment(.center)
-                        
                         
                         SlantedButton(
                             title: "Withdraw Cash",
@@ -192,12 +198,10 @@ struct SpawnQuiz: View {
                                 action: {
                                     dismiss()
                                 }
-                                
                             )
                             .frame(width: 400, height: 50)
                         }
                     }
-                    
                 }
             }
             .overlay(
@@ -215,6 +219,18 @@ struct SpawnQuiz: View {
                 num: 50,
                 radius: 600
             )
+            
+            if showChatPopUp {
+                ChatPopUpView(
+                    isChatTimerActive: $isChatTimerActive,
+                    onClose: {
+                        self.showChatPopUp = false
+                        viewModel.startTimer()
+                    }
+                )
+                .transition(.opacity)
+            }
+            
             if showLevelsScreen {
                 LevelProgressView(
                     levels: [(1, "$500"), (2, "$1,000"), (3, "$2,000"), (4, "$3,000"), (5, "$5,000"), (6, "$7,500"), (7, "$10,000"), (8, "$12,500"), (9, "$15,000"), (10, "$25,000"), (11, "$50,000"), (12, "$100,000"), (13, "$250,000"), (14, "$500,000"), (15, "$1,000,000")],
@@ -229,12 +245,12 @@ struct SpawnQuiz: View {
                             opacity = 1
                             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                                 showLevelsScreen = false
+                            }
                         }
                     }
                     viewModel.nextQuestion()
                 }
             }
-        }
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -244,10 +260,9 @@ struct SpawnQuiz: View {
                 }
             }
         }
-        
         .padding()
         .onAppear {
             viewModel.loadData()
         }
-}
+    }
 }

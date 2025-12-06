@@ -6,6 +6,9 @@ struct LifelineButtonSpawn: View {
     @ObservedObject var viewModel: QuizViewModel
     
     var onAudienceUsed: () -> Void = {}
+    @Binding var enableChat: Bool
+    @Binding var enablePhoneAFriend: Bool
+    var onChatUsed: () -> Void = {}
     var onPhoneUsed: () -> Void = {}
     
     var body: some View {
@@ -34,16 +37,22 @@ struct LifelineButtonSpawn: View {
             .disabled(viewModel.usedAskAudience)
 
             
-            LifelineButton(gradient: .lifelineBlue, content: {
-                Image.phone
-            }) {
-                if !viewModel.usedPhoneAFriend {
+            if enableChat {
+                LifelineButton(gradient: .lifelineBlue, content: {
+                    Image(systemName: "message.fill")
+                }) {
+                    onChatUsed()
+                }
+            } else if enablePhoneAFriend {
+                LifelineButton(gradient: .lifelineBlue, content: {
+                    Image.phone
+                }) {
                     viewModel.usePhoneAFriend()
                     onPhoneUsed()
                 }
+                .opacity(viewModel.usedPhoneAFriend ? 0.5 : 1.0)
+                .disabled(viewModel.usedPhoneAFriend)
             }
-            .opacity(viewModel.usedPhoneAFriend ? 0.5 : 1.0)
-            .disabled(viewModel.usedPhoneAFriend)
         }
     }
 }
