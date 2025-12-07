@@ -30,8 +30,9 @@ class QuizViewModel: ObservableObject {
     @Published var availableOptions: [Int] = []
     @Published var audienceVotes: [String: Int] = [:]
     @Published var phoneCallMessage: String = ""
-    
     @Published var cashOutEarly = false
+    
+    @Published var chatUsed: Bool = false
 
     
     init() {
@@ -227,6 +228,5 @@ class QuizViewModel: ObservableObject {
         cashOutEarly = true
         stopTimer()
     }
-
 
 }

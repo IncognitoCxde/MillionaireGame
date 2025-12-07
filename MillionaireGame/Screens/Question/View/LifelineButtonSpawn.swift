@@ -3,7 +3,7 @@ import DesignSystem
 
 struct LifelineButtonSpawn: View {
     
-    @ObservedObject var viewModel: QuizViewModel
+    @ObservedObject var viewModel = QuizViewModel()
     
     var onAudienceUsed: () -> Void = {}
     @Binding var enableChat: Bool
@@ -43,6 +43,9 @@ struct LifelineButtonSpawn: View {
                 }) {
                     onChatUsed()
                 }
+                .opacity(viewModel.chatUsed ? 0.5 : 1.0)
+                .disabled(viewModel.chatUsed)
+                
             } else if enablePhoneAFriend {
                 LifelineButton(gradient: .lifelineBlue, content: {
                     Image.phone

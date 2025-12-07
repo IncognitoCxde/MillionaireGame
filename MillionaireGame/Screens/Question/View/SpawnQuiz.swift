@@ -4,7 +4,8 @@ import ConfettiSwiftUI
 
 struct SpawnQuiz: View {
     
-    @StateObject private var viewModel = QuizViewModel()
+    @ObservedObject var viewModel: QuizViewModel
+    
     @State private var showLevelsScreen = false
     @State private var opacity: Double = 1.0
     @Environment(\.dismiss) var dismiss
@@ -93,6 +94,7 @@ struct SpawnQuiz: View {
                             enablePhoneAFriend: $enablePhoneAFriend,
                             onChatUsed: {
                                 showChatPopUp = true
+                                viewModel.chatUsed = true
                                 viewModel.stopTimer()
                             },
                             onPhoneUsed: {
@@ -222,11 +224,11 @@ struct SpawnQuiz: View {
             
             if showChatPopUp {
                 ChatPopUpView(
-                    isChatTimerActive: $isChatTimerActive,
+                    chatID: "test_chat_ID", isChatTimerActive: $isChatTimerActive,
                     onClose: {
                         self.showChatPopUp = false
                         viewModel.startTimer()
-                    }
+                    }, viewModel: ChatViewModel(chatID: "test_chat_ID")
                 )
                 .transition(.opacity)
             }

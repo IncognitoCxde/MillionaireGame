@@ -11,20 +11,25 @@ struct QuizView: View {
     @State private var showAudiencePopUp = false
     @State private var showPhoneAnimation = false
     
+    @ObservedObject var viewModel = QuizViewModel()
+    
+    
     var body: some View {
         ZStack {
             GameBackgroundView()
             VStack {
                 SpawnQuiz(
+                    viewModel: viewModel,
                     enableChat: $enableChat,
-                    enablePhoneAFriend: $enablePhoneAFriend
+                    enablePhoneAFriend: $enablePhoneAFriend,
                 )
+                .environmentObject(viewModel)
                     .overlay(
                         Group {
                             if showChatPopUp {
-                                ChatPopUpView(isChatTimerActive: $isChatTimerActive, onClose: {
+                                ChatPopUpView(chatID: "test_chat_ID", isChatTimerActive: $isChatTimerActive, onClose: {
                                     self.showChatPopUp = false
-                                })
+                                }, viewModel: ChatViewModel(chatID: "test_chat_ID"))
                             }
                         }
                     )
