@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		575443962ED0AC5500EC66D1 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 575443952ED0AC5500EC66D1 /* DesignSystem */; };
+		57934D8D2EE5DABF00BCD996 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 57934D8C2EE5DABF00BCD996 /* FirebaseAnalytics */; };
+		57934D8F2EE5DABF00BCD996 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 57934D8E2EE5DABF00BCD996 /* FirebaseCore */; };
+		57934D912EE5DABF00BCD996 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 57934D902EE5DABF00BCD996 /* FirebaseDatabase */; };
+		57934D932EE5DABF00BCD996 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 57934D922EE5DABF00BCD996 /* FirebaseFirestore */; };
+		57934D952EE5DABF00BCD996 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 57934D942EE5DABF00BCD996 /* FirebaseMessaging */; };
+		57934D972EE5DABF00BCD996 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 57934D962EE5DABF00BCD996 /* FirebaseStorage */; };
 		57937FAB2ED8DB18001DB271 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 57937FAA2ED8DB18001DB271 /* ConfettiSwiftUI */; };
 /* End PBXBuildFile section */
 
@@ -28,8 +34,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57934D912EE5DABF00BCD996 /* FirebaseDatabase in Frameworks */,
 				57937FAB2ED8DB18001DB271 /* ConfettiSwiftUI in Frameworks */,
+				57934D952EE5DABF00BCD996 /* FirebaseMessaging in Frameworks */,
 				575443962ED0AC5500EC66D1 /* DesignSystem in Frameworks */,
+				57934D8F2EE5DABF00BCD996 /* FirebaseCore in Frameworks */,
+				57934D972EE5DABF00BCD996 /* FirebaseStorage in Frameworks */,
+				57934D8D2EE5DABF00BCD996 /* FirebaseAnalytics in Frameworks */,
+				57934D932EE5DABF00BCD996 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +86,12 @@
 			packageProductDependencies = (
 				575443952ED0AC5500EC66D1 /* DesignSystem */,
 				57937FAA2ED8DB18001DB271 /* ConfettiSwiftUI */,
+				57934D8C2EE5DABF00BCD996 /* FirebaseAnalytics */,
+				57934D8E2EE5DABF00BCD996 /* FirebaseCore */,
+				57934D902EE5DABF00BCD996 /* FirebaseDatabase */,
+				57934D922EE5DABF00BCD996 /* FirebaseFirestore */,
+				57934D942EE5DABF00BCD996 /* FirebaseMessaging */,
+				57934D962EE5DABF00BCD996 /* FirebaseStorage */,
 			);
 			productName = MillionaireGame;
 			productReference = 57DBBD5D2ECF2E5C00691DB1 /* MillionaireGame.app */;
@@ -106,6 +124,7 @@
 			packageReferences = (
 				575443942ED0AC5500EC66D1 /* XCRemoteSwiftPackageReference "MillionaireDesignSystem" */,
 				57937FA92ED8DB18001DB271 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
+				57934D8B2EE5DABF00BCD996 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 57DBBD5E2ECF2E5C00691DB1 /* Products */;
@@ -355,6 +374,14 @@
 				kind = branch;
 			};
 		};
+		57934D8B2EE5DABF00BCD996 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.6.0;
+			};
+		};
 		57937FA92ED8DB18001DB271 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI";
@@ -370,6 +397,36 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 575443942ED0AC5500EC66D1 /* XCRemoteSwiftPackageReference "MillionaireDesignSystem" */;
 			productName = DesignSystem;
+		};
+		57934D8C2EE5DABF00BCD996 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57934D8B2EE5DABF00BCD996 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		57934D8E2EE5DABF00BCD996 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57934D8B2EE5DABF00BCD996 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		57934D902EE5DABF00BCD996 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57934D8B2EE5DABF00BCD996 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		57934D922EE5DABF00BCD996 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57934D8B2EE5DABF00BCD996 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		57934D942EE5DABF00BCD996 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57934D8B2EE5DABF00BCD996 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		57934D962EE5DABF00BCD996 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 57934D8B2EE5DABF00BCD996 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 		57937FAA2ED8DB18001DB271 /* ConfettiSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
