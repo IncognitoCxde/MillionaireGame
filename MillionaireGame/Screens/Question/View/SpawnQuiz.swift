@@ -19,6 +19,8 @@ struct SpawnQuiz: View {
     @State private var showChatPopUp = false
     @State private var isChatTimerActive = false
     
+    @State private var isNavigating = false
+    
     var body: some View {
         ZStack {
             VStack {
@@ -157,7 +159,7 @@ struct SpawnQuiz: View {
                             title: "Withdraw Cash",
                             gradient: withdrawGradient,
                             action: {
-                                print("Cash Withdrawn")
+                                isNavigating = true
                             }
                         )
                         .frame(width: 400, height: 50)
@@ -221,6 +223,10 @@ struct SpawnQuiz: View {
                 num: 50,
                 radius: 600
             )
+            
+            NavigationLink(destination: CardDetailsView(), isActive: $isNavigating) {
+                EmptyView()
+            }
             
             if showChatPopUp {
                 ChatPopUpView(
