@@ -128,7 +128,7 @@ class QuizViewModel: ObservableObject {
         }
     }
     
-    private func resetAnswerState() {
+    func resetAnswerState() {
         selectedAnswerIndex = nil
         selectedAnswerIsCorrect = nil
         isAnswerSelected = false
@@ -149,6 +149,8 @@ class QuizViewModel: ObservableObject {
         usedFiftyFifty = false
         usedAskAudience = false
         usedPhoneAFriend = false
+        
+        chatUsed = false
         
         startTimer()
     }

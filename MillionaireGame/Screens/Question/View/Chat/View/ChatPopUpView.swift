@@ -1,4 +1,5 @@
 import SwiftUI
+import DesignSystem
 
 struct ChatPopUpView: View {
     
@@ -21,11 +22,14 @@ struct ChatPopUpView: View {
             Text("Chat with a Friend")
                 .font(.title)
                 .padding(.top)
+                .foregroundStyle(.white)
+                .fontWeight(.semibold)
             
             Text("Time remaining: \(remainingTime)s")
                 .font(.title2)
                 .padding(.bottom)
-                .foregroundColor(remainingTime <= 5 ? .red : .black)
+                .foregroundColor(remainingTime <= 5 ? .red : .white)
+                .fontWeight(.semibold)
             
             ScrollView {
                 VStack(alignment: .leading) {
@@ -34,6 +38,7 @@ struct ChatPopUpView: View {
                             if message.isSent {
                                 Spacer()
                                 Text(message.message)
+                                    .fontWeight(.semibold)
                                     .padding(10)
                                     .background(Color.blue)
                                     .foregroundColor(.white)
@@ -42,9 +47,10 @@ struct ChatPopUpView: View {
                             } else {
                                 Text(message.message)
                                     .padding(10)
-                                    .background(Color.gray.opacity(0.1))
+                                    .background(Color.white)
                                     .cornerRadius(10)
                                     .padding(.bottom, 5)
+                                    .fontWeight(.semibold)
                                 Spacer()
                             }
                         }
@@ -54,7 +60,7 @@ struct ChatPopUpView: View {
             }
             
             HStack {
-                TextField("Type your message...", text: $viewModel.chatText)
+                TextField("Type here...", text: $viewModel.chatText)
                     .padding()
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .background(Color.gray.opacity(0.1))
@@ -80,16 +86,16 @@ struct ChatPopUpView: View {
                 Text("Close Chat")
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.red)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
+                    .foregroundColor(.red)
+                    .fontWeight(.semibold)
             }
             .padding(.top)
         }
         .frame(width: 300, height: 400)
-        .background(Color.white)
-        .cornerRadius(20)
-        .shadow(radius: 10)
+        .background(Color.black.opacity(0.85))
+        .cornerRadius(15)
+        .shadow(color: .black.opacity(0.8), radius: 20)
+        .shadow(color: .white.opacity(0.7), radius: 40)
         .onAppear {
             startTimer()
         }

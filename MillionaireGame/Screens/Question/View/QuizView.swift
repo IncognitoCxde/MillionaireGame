@@ -39,6 +39,8 @@ struct QuizView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
                         dismiss()
+                        viewModel.restartQuiz()
+                        viewModel.stopTimer()
                     }) {
                         Image.arrowBack
                             .font(.title2)
