@@ -262,7 +262,7 @@ struct SpawnQuiz: View {
                             }
                         }
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                         withAnimation(.easeInOut(duration: 1.0)) {
                             viewModel.nextQuestion()
                         }
