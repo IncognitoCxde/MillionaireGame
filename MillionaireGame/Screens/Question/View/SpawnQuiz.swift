@@ -19,6 +19,10 @@ struct SpawnQuiz: View {
     @State private var showChatPopUp = false
     @State private var isChatTimerActive = false
     
+    @State private var showGameEndScreen = false
+    
+    @State private var isNavigating = false
+    
     var body: some View {
         ZStack {
             VStack {
@@ -69,7 +73,7 @@ struct SpawnQuiz: View {
                                     action: {
                                         if !viewModel.isAnswerSelected {
                                             viewModel.checkAnswer(selectedIndex: index)
-                                            withAnimation(.easeInOut(duration: 1.0)) {
+                                            withAnimation(.easeInOut(duration: 2.0)) {
                                                 opacity = 0.0
                                                 showLevelsScreen = true
                                             }
@@ -110,101 +114,106 @@ struct SpawnQuiz: View {
                     }
                     
                 } else {
-                    if viewModel.allCorrect {
-                        JustLogoView()
-                            .padding(.top, -80)
-                        Text("YOU WIN")
-                            .font(.largeTitle)
-                            .padding()
-                            .foregroundColor(.brightGold)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.center)
-                            .padding(.top, -110)
-                        Text("Congratulations!")
-                            .font(.title)
-                            .padding()
-                            .foregroundColor(.brightGold)
-                            .fontWeight(.semibold)
-                            .multilineTextAlignment(.center)
-                            .padding(.top, -80)
-                        
-                        let withdrawGradient = LinearGradient(
-                            colors: [.brightGold, .darkGold],
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                        
-                        HStack {
-                            Image.coin
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                            Text("$ 1000,000")
+                    if showGameEndScreen {
+                        if viewModel.allCorrect {
+                            JustLogoView()
+                                .padding(.top, -80)
+                            Text("YOU WIN")
                                 .font(.largeTitle)
                                 .padding()
                                 .foregroundColor(.brightGold)
                                 .fontWeight(.bold)
                                 .multilineTextAlignment(.center)
-                        }
-                        
-                        Text("Click below to withdraw your cash now!")
-                            .font(.title3)
-                            .padding()
-                            .foregroundColor(.white)
-                            .fontWeight(.semibold)
-                            .multilineTextAlignment(.center)
-                        
-                        SlantedButton(
-                            title: "Withdraw Cash",
-                            gradient: withdrawGradient,
-                            action: {
-                                print("Cash Withdrawn")
+                                .padding(.top, -110)
+                            Text("Congratulations!")
+                                .font(.title)
+                                .padding()
+                                .foregroundColor(.brightGold)
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.center)
+                                .padding(.top, -80)
+                            
+                            let withdrawGradient = LinearGradient(
+                                colors: [.brightGold, .darkGold],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                            
+                            HStack {
+                                Image.coin
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                Text("$ 1000,000")
+                                    .font(.largeTitle)
+                                    .padding()
+                                    .foregroundColor(.brightGold)
+                                    .fontWeight(.bold)
+                                    .multilineTextAlignment(.center)
                             }
-                        )
-                        .frame(width: 400, height: 50)
-                        .padding(.bottom, 90)
-                        .padding(.top)
-                        
-                    } else {
-                        JustLogoView()
-                            .padding(.top, -80)
-                        Text("Game Over")
-                            .font(.largeTitle)
-                            .padding()
-                            .foregroundStyle(.white)
-                            .fontWeight(.semibold)
-                            .padding(.top, -140)
-                        
-                        let restartGradient = LinearGradient(
-                            colors: [.brightGold, .darkGold],
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                        
-                        BestScoreSection(bestScore: viewModel.currentScore)
-                            .padding(.bottom, 40)
-                            .padding(.top, -60)
-                        
-                        VStack {
+                            
+                            Text("Click below to withdraw your cash now!")
+                                .font(.title3)
+                                .padding()
+                                .foregroundColor(.white)
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.center)
+                            
                             SlantedButton(
-                                title: "Restart Quiz",
-                                gradient: restartGradient,
+                                title: "Withdraw Cash",
+                                gradient: withdrawGradient,
                                 action: {
-                                    viewModel.restartQuiz()
+                                    isNavigating = true
                                 }
                             )
                             .frame(width: 400, height: 50)
-                            .padding(.bottom, 40)
-                            SlantedButton(
-                                title: "Back to Home",
-                                gradient: .lifelineBlue,
-                                action: {
-                                    dismiss()
-                                }
+                            .padding(.bottom, 90)
+                            .padding(.top)
+                            
+                        } else {
+                            JustLogoView()
+                                .padding(.top, -80)
+                            Text("Game Over")
+                                .font(.largeTitle)
+                                .padding()
+                                .foregroundStyle(.white)
+                                .fontWeight(.semibold)
+                                .padding(.top, -140)
+                            
+                            let restartGradient = LinearGradient(
+                                colors: [.brightGold, .darkGold],
+                                startPoint: .leading,
+                                endPoint: .trailing
                             )
-                            .frame(width: 400, height: 50)
+                            
+                            BestScoreSection(bestScore: viewModel.currentScore)
+                                .padding(.bottom, 40)
+                                .padding(.top, -60)
+                            
+                            VStack {
+                                SlantedButton(
+                                    title: "Restart Quiz",
+                                    gradient: restartGradient,
+                                    action: {
+                                        viewModel.restartQuiz()
+                                    }
+                                )
+                                .frame(width: 400, height: 50)
+                                .padding(.bottom, 40)
+                                SlantedButton(
+                                    title: "Back to Home",
+                                    gradient: .lifelineBlue,
+                                    action: {
+                                        dismiss()
+                                    }
+                                )
+                                .frame(width: 400, height: 50)
+                            }
                         }
                     }
                 }
+            }
+            NavigationLink(destination: CardDetailsView(), isActive: $isNavigating) {
+                EmptyView()
             }
             .overlay(
                 AudiencePopUpView(showPopUp: $showAudiencePopUp, audienceVotes: viewModel.audienceVotes)
@@ -242,15 +251,22 @@ struct SpawnQuiz: View {
                 .navigationBarHidden(true)
                 .transition(.opacity)
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
                         withAnimation(.easeInOut(duration: 1.0)) {
                             opacity = 1
                             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                                 showLevelsScreen = false
+                                withAnimation {
+                                    showGameEndScreen = true
+                                }
                             }
                         }
                     }
-                    viewModel.nextQuestion()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        withAnimation(.easeInOut(duration: 1.0)) {
+                            viewModel.nextQuestion()
+                        }
+                    }
                 }
             }
         }
@@ -268,3 +284,4 @@ struct SpawnQuiz: View {
         }
     }
 }
+
