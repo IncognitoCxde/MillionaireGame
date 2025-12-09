@@ -165,7 +165,9 @@ struct SpawnQuiz: View {
                         .frame(width: 400, height: 50)
                         .padding(.bottom, 90)
                         .padding(.top)
-                        
+                        .transition(.opacity.combined(with: .scale))
+                        .animation(.easeInOut(duration: 0.7), value: viewModel.gameOver)
+
                     } else {
                         JustLogoView()
                             .padding(.top, -80)
@@ -201,10 +203,14 @@ struct SpawnQuiz: View {
                                 gradient: .lifelineBlue,
                                 action: {
                                     dismiss()
+                                    viewModel.restartQuiz()
+                                    viewModel.stopTimer()
                                 }
                             )
                             .frame(width: 400, height: 50)
                         }
+                        .transition(.opacity.combined(with: .scale))
+                        .animation(.easeInOut(duration: 0.7), value: viewModel.gameOver)
                     }
                 }
             }
@@ -246,9 +252,10 @@ struct SpawnQuiz: View {
                     viewModel: viewModel
                 )
                 .navigationBarHidden(true)
-                .transition(.opacity)
+                .transition(.opacity.combined(with: .move(edge: .bottom)))
+                .animation(.easeInOut(duration: 0.6), value: showLevelsScreen)
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
                         withAnimation(.easeInOut(duration: 1.0)) {
                             opacity = 1
                             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
@@ -256,7 +263,11 @@ struct SpawnQuiz: View {
                             }
                         }
                     }
-                    viewModel.nextQuestion()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 9) {
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            viewModel.nextQuestion()
+                        }
+                    }
                 }
             }
         }
