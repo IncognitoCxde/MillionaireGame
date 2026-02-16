@@ -22,7 +22,7 @@ class QuizViewModel: ObservableObject {
     @Published var currentScore: Int = 0
     @Published var bestScore: Int = UserDefaults.standard.integer(forKey: "BEST_SCORE")
     
-    func fireConfetti() { confettiCounter += 1 }
+    func fireConfetti() { confettiCounter += 18 }
     
     @Published var usedFiftyFifty = false
     @Published var usedAskAudience = false

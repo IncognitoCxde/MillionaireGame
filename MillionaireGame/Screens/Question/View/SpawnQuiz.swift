@@ -255,15 +255,15 @@ struct SpawnQuiz: View {
                 .transition(.opacity.combined(with: .move(edge: .bottom)))
                 .animation(.easeInOut(duration: 0.6), value: showLevelsScreen)
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                         withAnimation(.easeInOut(duration: 1.0)) {
                             opacity = 1
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            DispatchQueue.main.asyncAfter(deadline: .now()) {
                                 showLevelsScreen = false
                             }
                         }
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 9) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                         withAnimation(.easeInOut(duration: 0.5)) {
                             viewModel.nextQuestion()
                         }
